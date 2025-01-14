@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+</head>
+<body>
+<div th:fragment="navbar">
+    <nav id="navbar" class="navbar navbar-dark shadow p-3 bg-primary fixed-top">
+        <a class="navbar-brand" href="/" th:style="'color: #007bff;'">Main page</a>
+        <span sec:authorize="isAuthenticated()">
+                <span><a th:style="'color: #007bff;'">Welcome user:  </a><a th:text="${#authentication.name}" th:style="'color: #8ab83b;'"></a></span>
+                <span><a th:text="${#authentication.authorities}" th:style="'color: #8ab83b;'"></a></span>
+            </span>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Exit" th:style="'background-color: #8ab83b; padding: 4px; border-radius: 4px;'"/>
+        </form>
+    </nav>
+</div>
+</body>
+</html>

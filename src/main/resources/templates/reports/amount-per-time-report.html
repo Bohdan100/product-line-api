@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Excel report</title>
+</head>
+<body>
+<div th:insert="~{fragment/navbar :: navbar}"></div>
+<div id="content" class="container-fluid">
+    <form>
+        <div class="form-row p-3">
+            <input class="form-control col-1 ml-2 mr-2" th:value="${start}" type="date" name="start" id="start"
+                   placeholder="Date">
+            <input class="form-control col-1 mr-2" th:value="${end}" type="date" name="end" id="end" placeholder="Date">
+            <input type="submit" value="Get report">
+        </div>
+    </form>
+    <div th:if="${not #lists.isEmpty(list)}">
+        <a th:href="@{/reports/report-for-time/download-excel?start={start}&end={end}&type=excel(start=${start}, end=${end})}"
+           style="float:right;"><img th:src="@{/images/excel.png}" style="width: 40px" alt="excel photo"/></a>
+    </div>
+    <div th:each="item : ${list}">
+        <table class="table table-sm table-striped table-bordered">
+            <thead th:if="${!item.isEmpty()}" class="thead-dark">
+            <tr>
+                <th scope="col"> Customer</th>
+                <th scope="col"> Product name</th>
+                <th scope="col"> Variant</th>
+                <th scope="col"> Quantity</th>
+                <th scope="col"> Side</th>
+            </thead>
+            <tbody>
+            <tr th:each="record : ${item}">
+                <h2 th:if="${recordStat.first}" th:text="${record.lineName}"></h2>
+                <td><span th:text="${record.nameOrg}"></span></td>
+                <td><span th:text="${record.namePr}"></span></td>
+                <td><span th:text="${record.var}"></span></td>
+                <td><span th:text="${record.quantity}"></span></td>
+                <td><span th:text="${record.side}"></span></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div th:insert="~{fragment/footer :: footer}"></div>
+</body>
+</html>

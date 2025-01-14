@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div th:fragment="filter">
+    <form>
+        <div class="form-row p-3">
+            <input class="form-control col-1 ml-2 mr-2" type="date" name="start" id="start" placeholder="Date">
+            <input class="form-control col-1 mr-2" type="date" name="end" id="end" placeholder="Date">
+            <input class="form-control col-md-1 mr-2" type="text" name="nameOfOrganization" id="nameOfOrganization"
+                   placeholder="Customer"></inpur>
+            <input class="form-control col-md-2 mr-2" type="text" name="nameOfProduct" id="nameOfProduct"
+                   placeholder="Product name"></inpur>
+            <input class="form-control col-md-2 mr-2" type="text" name="variant" id="variant"
+                   placeholder="Variant"></inpur>
+            <select class="form-control col-1 mr-2" name="side" id="side">
+                <option value="">Both sides</option>
+                <option value="top">Top</option>
+                <option value="bottom">Bottom</option>
+            </select>
+            <input class="form-control col-md-2 mr-2" type="text" name="surname" id="surname"
+                   placeholder="Executor"></inpur>
+            <input type="submit" value="Find">
+        </div>
+    </form>
+</div>
+</body>
+</html>

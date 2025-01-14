@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Update user</title>
+    <script>
+        function validateForm(event) {
+            const roleCheckboxes = document.querySelectorAll('input[type="checkbox"][name="roles"]');
+            const errorMessage = document.getElementById('role-error-message');
+
+            // Проверяем, выбрана ли хотя бы одна роль
+            const hasSelectedRole = Array.from(roleCheckboxes).some(checkbox => checkbox.checked);
+
+            if (!hasSelectedRole) {
+                // Показываем сообщение об ошибке
+                errorMessage.style.display = 'block';
+                event.preventDefault(); // Блокируем отправку формы
+            } else {
+                errorMessage.style.display = 'none'; // Скрываем сообщение об ошибке
+            }
+        }
+    </script>
+</head>
+<body>
+<div th:insert="~{fragment/navbar :: navbar}"></div>
+<div id="content" class="container-fluid">
+    <form action="#" th:action="@{/users/update}" th:object="${user}" method="post" onsubmit="validateForm(event)">
+        <input hidden type="number" th:field="*{id}" id="id"/>
+
+        <div class="form-row">
+            <label for="username">Username</label>
+            <input class="form-control" type="text" th:field="*{username}" id="username" placeholder="Username">
+            <p th:if="${#fields.hasErrors('username')}" class="alert alert-danger" th:errors="*{username}"></p>
+        </div>
+
+        <div class="form-row">
+            <label for="password">Password</label>
+            <input class="form-control" type="text" th:field="*{password}" id="password" placeholder="Password">
+            <p th:if="${#fields.hasErrors('password')}" class="alert alert-danger" th:errors="*{password}"></p>
+        </div>
+
+        <div class="form-row">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" th:field="*{name}" id="name" placeholder="Name">
+            <p th:if="${#fields.hasErrors('name')}" class="alert alert-danger" th:errors="*{name}"></p>
+        </div>
+
+        <div class="form-row">
+            <label for="surname">Surname</label>
+            <input class="form-control" type="text" th:field="*{surname}" id="surname" placeholder="Surname">
+            <p th:if="${#fields.hasErrors('surname')}" class="alert alert-danger" th:errors="*{surname}"></p>
+        </div>
+
+        <!-- Поле для ролей -->
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="role">Roles:</label>
+                <span th:each="role : ${allRoles}">
+                    <label class="ml-4" for="role" th:text="${role}"></label>
+                    <input type="checkbox" id="role" th:name="roles" th:value="${role}"
+                           th:checked="${#lists.contains(user.roles, role)}">
+                </span>
+                <!-- Сообщение об ошибке -->
+                <p id="role-error-message" style="display: none;" class="alert alert-danger">
+                    At least one role must be selected.
+                </p>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" value="Update user">Update</button>
+    </form>
+</div>
+</body>
+</html>

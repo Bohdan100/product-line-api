@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Journal</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Line list</title>
+</head>
+<body>
+
+<div th:insert="~{fragment/navbar :: navbar}"></div>
+
+<div id="content" class="container-fluid">
+    <div>
+        <a class="btn btn-primary ml-2 mb-2" th:href="@{lines/create}">Add line</a>
+    </div>
+    <table class="table table-sm table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Line name</th>
+            <th scope="col">Edit/Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="line : ${lines}">
+            <td><span th:text="${line.name}"></span></td>
+            <td>
+             <span>
+                 <a class="badge badge-danger" th:href="@{lines/update/{id}(id=${line.id})}">Edit</a>
+                 <a class="badge badge-danger" th:href="@{lines/delete/{id}(id=${line.id})}">Delete</a>
+             </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

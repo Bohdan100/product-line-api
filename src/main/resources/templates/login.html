@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <title>Login page</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div id="content" class="container-fluid">
+    <div class="login-form border">
+        <div class="alert alert-danger" role="alert" th:if="${param.error}">
+            Incorrect login or password.
+        </div>
+        <div class="alert alert-info" role="alert" th:if="${param.logout}">
+            You are logged out.
+        </div>
+        <form th:action="@{/login}" method="post">
+            <div align="center" class="form-group">
+                <label>Логин: <input type="text" name="username"/></label>
+            </div>
+            <div align="center" class="form-group">
+                <label>Password: <input type="password" name="password"/> </label>
+            </div>
+            <button align="center" type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</div>
+<div th:insert="~{fragment/footer :: footer}"></div>
+</body>
+</html>

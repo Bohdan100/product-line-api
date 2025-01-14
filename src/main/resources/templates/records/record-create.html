@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Add record</title>
+</head>
+<body>
+<div th:insert="~{fragment/navbar :: navbar}"></div>
+<div id="content" class="container-fluid">
+
+    <form action="#" th:action="@{/lines/line/{id}/record-create(id=${lineId})}" th:object="${record}" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="date">Date</label>
+                <input class="form-control" type="date" th:field="*{date}" id="date" placeholder="Date">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="startTime">Start</label>
+                <input class="form-control" type="time" th:field="*{startTime}" id="startTime" placeholder="Start">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="endTime">End</label>
+                <input class="form-control" type="time" th:field="*{endTime}" id="endTime" placeholder="End">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <p th:if="${#fields.hasErrors('date')}" class="alert alert-danger"
+                   th:errors="*{date}"></p>
+            </div>
+            <div class="form-group col-md-4">
+                <p th:if="${#fields.hasErrors('startTime')}" class="alert alert-danger"
+                   th:errors="*{startTime}"></p>
+            </div>
+            <div class="form-group col-md-4">
+                <p th:if="${#fields.hasErrors('endTime')}" class="alert alert-danger"
+                   th:errors="*{endTime}"></p>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label for="nameOfOrganization">Customer</label>
+            <input class="form-control" type="text" th:field="*{nameOfOrganization}" id="nameOfOrganization"
+                   placeholder="Customer organization">
+        </div>
+        <div class="form-row">
+            <p th:if="${#fields.hasErrors('nameOfOrganization')}" class="alert alert-danger"
+               th:errors="*{nameOfOrganization}"></p>
+        </div>
+
+        <div class="form-row">
+            <label for="nameOfProduct">Product name</label>
+            <input class="form-control" type="text" th:field="*{nameOfProduct}" id="nameOfProduct"
+                   placeholder="Product name">
+        </div>
+        <div class="form-row">
+            <p th:if="${#fields.hasErrors('nameOfProduct')}" class="alert alert-danger"
+               th:errors="*{nameOfProduct}"></p>
+        </div>
+
+        <div class="form-row">
+            <label for="variant">Variant</label>
+            <input class="form-control" type="text" th:field="*{variant}" id="variant" placeholder="Variant">
+        </div>
+        <div class="form-row">
+            <p th:if="${#fields.hasErrors('variant')}" class="alert alert-danger"
+               th:errors="*{variant}"></p>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="side">Side</label>
+                <select class="form-control" th:field="*{side}" id="side">
+                    <option th:value="'top'" th:text="Top"></option>
+                    <option th:value="'bottom'" th:text="Bottom"></option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="quantity">Quantity</label>
+                <input type="text" class="form-control" th:field="*{quantity}" id="quantity" placeholder="Quantity">
+                <p th:if="${#fields.hasErrors('quantity')}" class="alert alert-danger"
+                   th:errors="*{quantity}"></p>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" value="Добавить запись">Add</button>
+    </form>
+</div>
+</body>
+</html>
+
+

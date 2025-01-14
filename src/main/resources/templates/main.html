@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <title>Journal</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<!-- Current user info -->
+<div th:insert="~{fragment/navbar :: navbar}"></div>
+
+<!-- Line list -->
+<div id="content" class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div th:if="${lines.isEmpty()}">
+                <h4 class="alert alert-secondary m-2 p-3" role="tab" align="center">No lines</h4>
+            </div>
+            <div th:each="line : ${lines}">
+                <h5>
+                    <a class="list-group-item list-group-item-action list-group-item-primary m-2 p-3"
+                       th:href="@{/lines/line/{id}(id=${line.id})}" th:text="${line.name}"></a>
+                </h5>
+            </div>
+        </div>
+        <div class="col">
+            <h5 th:if="${#authentication.authorities.contains(superior) || #authentication.authorities.contains(admin)}">
+                <a class="list-group-item list-group-item-action list-group-item-primary m-2 p-3"
+                   th:href="@{/reports/report-for-time}">Report for the period</a>
+            </h5>
+        </div>
+        <div class="col">
+            <h5 th:if="${#authentication.authorities.contains(admin)}">
+                <a class="list-group-item list-group-item-action list-group-item-primary m-2 p-3" th:href="@{/users}">User Management</a>
+            </h5>
+            <h5 th:if="${#authentication.authorities.contains(admin)}">
+                <a class="list-group-item list-group-item-action list-group-item-primary m-2 p-3" th:href="@{/lines}">Lines Management</a>
+            </h5>
+        </div>
+    </div>
+</div>
+<!-- Company info -->
+<div th:insert="~{fragment/footer :: footer}"></div>
+
+</body>
+</html>

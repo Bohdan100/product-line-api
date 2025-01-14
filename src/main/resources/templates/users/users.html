@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Users</title>
+</head>
+<body>
+
+<div th:insert="~{fragment/navbar :: navbar}"></div>
+
+<div id="content" class="container-fluid">
+
+    <h3> User management </h3>
+    <a class="btn btn-primary mb-3" href="/users/create">Add user</a>
+    <table class="table table-sm table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col"> Username</th>
+            <th scope="col"> Password</th>
+            <th scope="col"> Name</th>
+            <th scope="col"> Surname</th>
+            <th scope="col"> Roles</th>
+            <th th:if="${#authentication.authorities.contains(admin)}" scope="col"> Edit / Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${users.isEmpty()}">
+            <td align="center" colspan="6"><h3>No users</h3></td>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td><span th:text="${user.username}"> </span></td>
+            <td><span th:text="${user.password}"> </span></td>
+            <td><span th:text="${user.name}">  </span></td>
+            <td><span th:text="${user.surname}"></span></td>
+            <td><span th:text="${user.roles}"></span></td>
+            <td>
+             <span th:if="${#authentication.authorities.contains(admin)}">
+                 <a class="badge badge-danger" th:href="@{/users/update/{id}(id=${user.id})}">Edit</a>
+                 <a class="badge badge-danger" th:href="@{/users/delete/{id}(id=${user.id})}">Delete</a>
+             </span>
+            </td>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div th:fragment="table(line, page)">
+    <table class="table table-sm table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col"> Date</th>
+            <th scope="col"> Start</th>
+            <th scope="col"> End</th>
+            <th scope="col"> Customer</th>
+            <th scope="col"> Product name</th>
+            <th scope="col"> Variant</th>
+            <th scope="col"> Side</th>
+            <th scope="col"> Quantity</th>
+            <th scope="col"> Executor</th>
+            <th th:if="${#authentication.authorities.contains(admin)}"
+                scope="col"> Edit / Delete
+            </th>
+        </tr>
+        </thead>
+        <tbody class="overflow-auto">
+        <tr th:if="${page.isEmpty()}">
+            <td colspan="10" align="center"><h3>No records</h3></td>
+        </tr>
+        <tr th:each="record : ${page.content}">
+            <td><span th:text="${#temporals.format(record.date,'dd-MM-yyyy')}"></span></td>
+
+            <td><span th:text="${record.startTime}"> </span></td>
+            <td><span th:text="${record.endTime}"> </span></td>
+            <td><span th:text="${record.nameOfOrganization}">  </span></td>
+            <td><span th:text="${record.nameOfProduct}"></span></td>
+            <td><span th:text="${record.variant}"></span></td>
+            <td><span th:text="${record.side}"></span></td>
+            <td><span th:text="${record.quantity}"></span></td>
+            <td>
+                <span th:text="${record.author.surname}"></span>
+                <span th:text="${record.author.name}"></span>
+            </td>
+            <td th:if="${#authentication.authorities.contains(admin)}">
+                <a class="badge badge-danger" th:href="@{/lines/line/{line}/record-update/{id}(line=${line.id}, id=${record.id})}">Edit</a>
+                <a class="badge badge-danger" th:href="@{/lines/line/{line}/record-delete/{id}(line=${line.id}, id=${record.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:insert="~{fragment/pagination :: pagination (${line},${page})}"></div>
+
+</div>
+</body>
+</html>
