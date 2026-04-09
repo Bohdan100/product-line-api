@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.AllArgsConstructor;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
 

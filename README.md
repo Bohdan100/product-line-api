@@ -15,41 +15,14 @@ The **Product-Line Management Application** is a Spring Boot application designe
 - Ensure code quality with JUnit 5 and Mockito tests.
 
 ## Requirements
-The application is built using the following technologies:
-- **Spring Boot**: 3.3.5
-- **Java Platform (JDK)**: 21
-- **PostgreSQL**: 16.6
-- **Flyway**: 11.0.1
-- **Thymeleaf**: 3.4.1
-- **Lombok**: 1.18.36
-- **Apache POI**: 5.4.0
-- **JUnit**: 5
-- **Mockito**: 5
-- **Gradle**: 8.8
-  
-## Database Setup
-Before running the application, follow these steps to set up the database:
 
-1. **Create a PostgreSQL 16 Database**  
-   Set up a PostgreSQL database to store the application’s data.
+The following configurations are required to launch the project:
 
-2. **Configure Database and User**  
-   Perform the following steps in your PostgreSQL instance to create a user and database for the application:
-
-    1. Create a new user with a password:
-       ```sql
-       CREATE USER IF NOT EXISTS product_admin WITH PASSWORD 'secret1234';
-       ```
-
-    2. Create a new database:
-       ```sql
-       CREATE DATABASE IF NOT EXISTS product ENCODING 'UTF8' OWNER product_admin;
-       ```
-
-3. **Connect to the Database**  
-   To connect to the `product` database as the `product_admin` user, use the following command in the terminal:
-   ```bash
-   psql -U product_admin -d product
+- **Java Platform (JDK)**: 25
+- **Gradle**: 9.2.0
+- **Spring Boot**: 4.0.2
+- **Docker**: 29.1.3
+- **Kotlin**: 2.3.0
 
 ## Getting Started
 
@@ -58,17 +31,11 @@ Before running the application, follow these steps to set up the database:
    git clone https://github.com/Bohdan100/product-line-api
    cd product-line-api
 
-2. Build and Run the Application Using Gradle in Terminal:
+2. Build and Run the Application Using Docker in Terminal:
    ```bash
-   .\gradlew bootRun     (for Windows)
-   ./gradlew bootRun     (for Linux)
-    ```
-3. Build and Run the Application Using a JAR File:
-   ```bash
-   .\gradlew bootJar     (for Windows)
-   ./gradlew bootJar     (for Linux)
-   
-   java -jar product-line-api.jar
+   docker-compose up -d --build app
+
+3. Make your HTTPS requests using the following endpoints (e.g., via **Postman**):
     ```
 4. Access the Application in Your Browser:
    - **Login**: [http://localhost:8080/login](http://localhost:8080/login)

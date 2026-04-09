@@ -10,6 +10,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.security.test.context.support.WithMockUser;
 import java.util.List;
+import java.util.Optional;
 
 import corp.product.service.UserService;
 import corp.product.repository.UserRepository;
@@ -34,16 +35,15 @@ class UserServiceTest {
     private UserDto testUserDto;
 
     @BeforeEach
-    @WithMockUser(roles = "ADMIN")
     void setUp() {
-        testUser = new User(1L, "testuser", "password123", "John", "Doe", List.of(Role.ADMIN), List.of());
-        testUserDto = new UserDto(1L, "testuser", "password123", "John", "Doe", List.of(Role.ADMIN));
+        testUser = new User(1L, "testuser", "password123", "John", "Smith", List.of(Role.ADMIN), List.of());
+        testUserDto = new UserDto(1L, "testuser", "password123", "John", "Smith", List.of(Role.ADMIN));
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
     void shouldCreateUser() {
-        when(userRepository.findUserByUsername(testUserDto.getUsername())).thenReturn(null);
+        when(userRepository.findByUsername(testUserDto.getUsername())).thenReturn(Optional.empty());
         when(userConverter.convertFromDto(testUserDto)).thenReturn(testUser);
         when(userRepository.save(any(User.class))).thenReturn(testUser);
 
@@ -55,7 +55,7 @@ class UserServiceTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void shouldNotCreateUserWhenUsernameExists() {
-        when(userRepository.findUserByUsername(testUserDto.getUsername())).thenReturn(testUser);
+        when(userRepository.findByUsername(testUserDto.getUsername())).thenReturn(Optional.of(testUser));
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> userService.create(testUserDto));
         assertEquals("User with this username already exists.", exception.getMessage());
@@ -64,13 +64,14 @@ class UserServiceTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void shouldFindUserById() {
-        when(userRepository.getOne(1L)).thenReturn(testUser);
+        when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
         when(userConverter.convertFromEntity(testUser)).thenReturn(testUserDto);
 
         UserDto result = userService.findById(1L);
 
         assertNotNull(result);
         assertEquals(testUserDto.getUsername(), result.getUsername());
+        verify(userRepository).findById(1L);
     }
 
     @Test
@@ -84,12 +85,13 @@ class UserServiceTest {
 
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals(testUserDto.getUsername(), result.getFirst().getUsername());
+        assertEquals(testUserDto.getUsername(), result.get(0).getUsername());
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
     void shouldDeleteUser() {
+        when(userRepository.existsById(1L)).thenReturn(true);
         userService.delete(1L);
 
         verify(userRepository).deleteById(1L);

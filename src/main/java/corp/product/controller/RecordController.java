@@ -1,6 +1,5 @@
 package corp.product.controller;
 
-
 import org.springframework.stereotype.Controller;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -8,7 +7,6 @@ import jakarta.validation.Valid;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.data.domain.Page;
@@ -32,7 +30,6 @@ public class RecordController {
 
     private final LineService lineService;
 
-    // Get search parameters from URL
     @GetMapping("{lineId}")
     public String list(@PathVariable("lineId") long id,
                        @RequestParam(name = "start", required = false)
@@ -105,13 +102,19 @@ public class RecordController {
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERIOR')")
     @PostMapping("{lineId}/record-update/{id}")
     public String updateRecord(@PathVariable("lineId") String lineId,
-                               @Valid @ModelAttribute RecordDto record,
+                               @PathVariable("id") Long id,
+                               @Valid @ModelAttribute("record") RecordDto record,
                                BindingResult bindingResult, Model model) {
+
         if (bindingResult.hasErrors()) {
+            model.addAttribute("lineId", lineId);
+            model.addAttribute("id", id);
             return "records/record-update";
         }
+
+        record.setId(id);
         recordService.update(record);
-        model.addAttribute("record", record);
+
         return "redirect:/lines/line/" + lineId;
     }
 

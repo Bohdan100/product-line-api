@@ -7,7 +7,6 @@ import corp.product.repository.LineRepository;
 import corp.product.converter.LineConverter;
 import corp.product.dto.LineDto;
 import corp.product.data.Line;
-
 import java.util.List;
 
 @Service
@@ -19,13 +18,14 @@ public class LineService {
 
 
     public List<LineDto> list() {
-        List<Line> all = lineRepository.findAll();
+        List<Line> all = lineRepository.findAllByOrderByIdAsc();
         return converter.createFromEntities(all);
     }
 
     public LineDto getOne(long id) {
-        Line line = lineRepository.getOne(id);
-        return converter.convertFromEntity(line);
+        return lineRepository.findById(id)
+                .map(converter::convertFromEntity)
+                .orElseThrow(() -> new RuntimeException("Line not found with id: " + id));
     }
 
     public void createOrUpdate(LineDto lineDto) {

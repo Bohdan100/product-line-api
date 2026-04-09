@@ -11,9 +11,21 @@
     <nav id="navbar" class="navbar navbar-dark shadow p-3 bg-primary fixed-top">
         <a class="navbar-brand" href="/" th:style="'color: #007bff;'">Main page</a>
         <span sec:authorize="isAuthenticated()">
-                <span><a th:style="'color: #007bff;'">Welcome user:  </a><a th:text="${#authentication.name}" th:style="'color: #8ab83b;'"></a></span>
-                <span><a th:text="${#authentication.authorities}" th:style="'color: #8ab83b;'"></a></span>
+             <span>
+                <a style="color: #007bff;">Welcome user: </a>
+                <a th:text="${#authentication.principal.name + ' ' + #authentication.principal.surname}"
+           style="color: #8ab83b;"></a>
             </span>
+
+            <span>
+                <a style="color: #007bff;"> [</a>
+                <th:block th:each="authority, iterStat : ${#authentication.authorities}"
+                    th:if="${authority.authority == 'ADMIN' or authority.authority == 'OPERATOR' or authority.authority == 'SUPERIOR'}">
+                <a th:text="${authority.authority}" style="color: #8ab83b;"></a>
+                </th:block>
+                <a style="color: #007bff;">]</a>
+            </span>
+        </span>
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Exit" th:style="'background-color: #8ab83b; padding: 4px; border-radius: 4px;'"/>
         </form>

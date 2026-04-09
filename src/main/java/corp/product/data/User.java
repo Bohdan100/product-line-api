@@ -11,12 +11,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "\"user\"")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = "records")
+@ToString(exclude = {"password", "records", "roles"})
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "\"id\"")

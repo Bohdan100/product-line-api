@@ -76,12 +76,12 @@ class RecordControllerTest {
     void testCreateRecordNoErrors() {
         RecordDto recordDto = new RecordDto();
         BindingResult bindingResult = mock(BindingResult.class);
-        User user = mock(User.class); // Создаем мок пользователя
+        User user = mock(User.class);
         when(bindingResult.hasErrors()).thenReturn(false);
 
         String result = recordController.create(user, 1L, recordDto, bindingResult);
 
-        verify(recordService).create(recordDto, user, 1L); // Используем тот же экземпляр пользователя
+        verify(recordService).create(recordDto, user, 1L);
         assertEquals("redirect:/lines/line/1", result);
     }
 
@@ -101,24 +101,34 @@ class RecordControllerTest {
     @Test
     void testUpdateRecordWithErrors() {
         RecordDto recordDto = new RecordDto();
+        Long recordId = 33L;
+        String lineId = "1";
         BindingResult bindingResult = mock(BindingResult.class);
+
         when(bindingResult.hasErrors()).thenReturn(true);
 
-        String result = recordController.updateRecord("1", recordDto, bindingResult, model);
+        String result = recordController.updateRecord(lineId, recordId, recordDto, bindingResult, model);
 
+        verify(model).addAttribute("lineId", lineId);
+        verify(model).addAttribute("id", recordId);
         assertEquals("records/record-update", result);
     }
 
     @Test
     void testUpdateRecordNoErrors() {
         RecordDto recordDto = new RecordDto();
+        Long recordId = 33L;
+        String lineId = "1";
         BindingResult bindingResult = mock(BindingResult.class);
+
         when(bindingResult.hasErrors()).thenReturn(false);
 
-        String result = recordController.updateRecord("1", recordDto, bindingResult, model);
+        String result = recordController.updateRecord(lineId, recordId, recordDto, bindingResult, model);
 
         verify(recordService).update(recordDto);
-        assertEquals("redirect:/lines/line/1", result);
+
+        assertEquals(recordId, recordDto.getId());
+        assertEquals("redirect:/lines/line/" + lineId, result);
     }
 
     @Test

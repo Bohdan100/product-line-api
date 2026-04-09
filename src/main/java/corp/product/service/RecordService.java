@@ -1,15 +1,12 @@
 package corp.product.service;
 
-
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import corp.product.repository.LineRepository;
 import corp.product.repository.RecordRepository;
-
 import corp.product.converter.RecordConverter;
 import corp.product.converter.ReportConverter;
 import corp.product.dto.RecordDto;
@@ -25,55 +22,47 @@ import java.util.List;
 @AllArgsConstructor
 public class RecordService {
     private final RecordRepository recordRepository;
-
     private final LineRepository lineRepository;
-
     private final ReportConverter reportConverter;
-
     private final RecordConverter recordConverter;
 
     public Page<RecordDto> list(long id, Pageable pageable) {
-        Page<RecordEntity> records = recordRepository.getRecordsPageable(id, pageable);
+        Page<RecordEntity> records = recordRepository.findAllByLineId(id, pageable);
         return recordConverter.createFromEntities(records, pageable);
     }
 
-    public Page<RecordDto> filter(long id,
-                                  LocalDate start,
-                                  LocalDate end,
-                                  String nameOfOrganization,
-                                  String nameOfProduct,
-                                  String variant,
-                                  String side,
-                                  String surname,
+    public Page<RecordDto> filter(long id, LocalDate start, LocalDate end, String org,
+                                  String prod, String variant, String side, String surname,
                                   Pageable pageable) {
-        Page<RecordEntity> records = recordRepository.filter(id,
-                start,
-                end,
-                nameOfOrganization,
-                nameOfProduct,
-                variant,
-                side,
-                surname,
-                pageable);
+        Page<RecordEntity> records = recordRepository.filterWithParams(
+                id, start, end, org, prod, variant, side, surname, pageable);
         return recordConverter.createFromEntities(records, pageable);
     }
 
     public void update(RecordDto recordDto) {
-        RecordEntity record = recordConverter.convertFromDto(recordDto);
-        RecordEntity recordById = recordRepository.getRecordById(recordDto.getId());
-        record.setAuthor(recordById.getAuthor());
-        record.setLine(recordById.getLine());
-        recordRepository.save(record);
+        RecordEntity existing = recordRepository.findById(recordDto.getId())
+                .orElseThrow(() -> new RuntimeException("Record not found"));
+
+        RecordEntity updated = recordConverter.convertFromDto(recordDto);
+
+        updated.setAuthor(existing.getAuthor());
+        updated.setLine(existing.getLine());
+
+        recordRepository.save(updated);
     }
 
     public RecordDto getOne(long id) {
-        RecordEntity record = recordRepository.getRecordById(id);
-        return recordConverter.convertFromEntity(record);
+        return recordRepository.findById(id)
+                .map(recordConverter::convertFromEntity)
+                .orElseThrow(() -> new RuntimeException("Record not found"));
     }
 
     public void create(RecordDto recordDto, User author, long id) {
         RecordEntity record = recordConverter.convertFromDto(recordDto);
-        Line line = lineRepository.getOne(id);
+
+        Line line = lineRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Line not found with id: " + id));
+
         record.setAuthor(author);
         record.setLine(line);
         recordRepository.save(record);
@@ -84,7 +73,7 @@ public class RecordService {
     }
 
     public List<ReportDto> getRecords(LocalDate start, LocalDate end) {
-        List<RecordEntity> recordsForReport = recordRepository.getRecordsBetweenDate(start, end);
-        return reportConverter.createFromEntities(recordsForReport);
+        List<RecordEntity> records = recordRepository.findAllByDateBetween(start, end);
+        return reportConverter.createFromEntities(records);
     }
 }
