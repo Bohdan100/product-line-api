@@ -246,13 +246,6 @@ The dashboard displays:
 - Top performer (user with most records)
 - Distribution of records across product lines
 
-**Testing the application**:
-
-   ```bash
-   .\gradlew test            (for Windows)
-   ./gradlew test            (for Linux)
-   ```
-
 **Technology Stack**:
 
 - Backend Framework: Spring Boot 4.0.2
