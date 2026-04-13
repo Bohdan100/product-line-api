@@ -256,4 +256,3 @@ The dashboard displays:
 - Security: Spring Security with form-based authentication
 - Containerization: Docker & Docker Compose
 - Libraries: Lombok, Apache Commons IO, OpenCSV (for Excel generation)
-- Testing: JUnit 5, Mockito
