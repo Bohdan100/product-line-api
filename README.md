@@ -233,9 +233,9 @@ The report generates a summary of quantities grouped by product lines and organi
 
    - **Base URL**: [http://localhost:8080/admin/dashboard](http://localhost:8080/admin/dashboard)
 
-   | Method | Endpoint           | Description                                  | Access              |
-   |--------|--------------------|----------------------------------------------|---------------------|
-   | GET    | `/admin/dashboard` | Main dashboard with statistics and line list | Authenticated users |
+   | Method | Endpoint           | Description                                  | Access     |
+   |--------|--------------------|----------------------------------------------|------------|
+   | GET    | `/admin/dashboard` | Main dashboard with statistics and line list | ADMIN only |
 
 The dashboard displays:
 
