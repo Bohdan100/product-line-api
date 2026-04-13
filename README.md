@@ -114,7 +114,7 @@ via cookies.
 - **Base URL**: [http://localhost:8080/lines](http://localhost:8080/lines)
 
   | Method | Endpoint | Description | Access |
-                   |--------|----------|-------------|--------|
+                     |--------|----------|-------------|--------|
   | GET | `/lines` | View all product lines | Authenticated users |
   | GET | `/lines/create` | Display line creation form | ADMIN only |
   | POST | `/lines/create` | Create a new product line | ADMIN only |
@@ -135,7 +135,7 @@ via cookies.
 - **Base URL**: [http://localhost:8080/lines/line/{lineId}](http://localhost:8080/lines/line/{lineId})
 
   | Method | Endpoint | Description | Access |
-                   |--------|----------|-------------|--------|
+                     |--------|----------|-------------|--------|
   | GET | `/lines/line/{lineId}` | View all records for specific line with filtering | Authenticated users |
   | GET | `/lines/line/{lineId}/record-create` | Display record creation form | Authenticated users |
   | POST | `/lines/line/{lineId}/record-create` | Create new record in line | Authenticated users |
@@ -180,7 +180,7 @@ via cookies.
 - **Base URL**: [http://localhost:8080/users](http://localhost:8080/users)
 
   | Method | Endpoint | Description | Access |
-                   |--------|----------|-------------|--------|
+                     |--------|----------|-------------|--------|
   | GET | `/users` | List all users | ADMIN only |
   | GET | `/users/create` | Display user creation form | ADMIN only |
   | POST | `/users/create` | Create new user with roles | ADMIN only |
@@ -217,7 +217,7 @@ Available Roles:
 - **Base URL**: [http://localhost:8080/reports](http://localhost:8080/reports)
 
   | Method | Endpoint | Description | Access |
-                   |--------|----------|-------------|--------|
+                     |--------|----------|-------------|--------|
   | GET | `/reports/report-for-time` | View aggregated report by date range | ADMIN, SUPERIOR |
   | GET | `/reports/report-for-time/download-excel` | Download Excel report | ADMIN, SUPERIOR |
 
