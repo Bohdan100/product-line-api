@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import corp.product.service.RecordService;
+import corp.product.service.impl.RecordServiceImpl;
 import corp.product.repository.LineRepository;
 import corp.product.repository.RecordRepository;
 import corp.product.converter.RecordConverter;
@@ -39,7 +39,7 @@ class RecordServiceTest {
     private ReportConverter reportConverter;
 
     @InjectMocks
-    private RecordService recordService;
+    private RecordServiceImpl recordService;
 
     @Test
     void testRecordList() {

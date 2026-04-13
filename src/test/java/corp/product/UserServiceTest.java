@@ -12,7 +12,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import java.util.List;
 import java.util.Optional;
 
-import corp.product.service.UserService;
+import corp.product.service.impl.UserServiceImpl;
 import corp.product.repository.UserRepository;
 import corp.product.converter.UserConverter;
 import corp.product.data.User;
@@ -29,7 +29,7 @@ class UserServiceTest {
     private UserConverter userConverter;
 
     @InjectMocks
-    private UserService userService;
+    private UserServiceImpl userService;
 
     private User testUser;
     private UserDto testUserDto;

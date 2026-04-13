@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <title>Admin Dashboard</title>
+</head>
+<body>
+<div th:insert="~{fragment/navbar :: navbar}"></div>
+
+<div id="content" class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>System Statistics</h2>
+    <a href="/" class="btn btn-secondary">Back to Main</a>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card text-white bg-warning mb-3 shadow">
+        <div class="card-header">Total Items Produced</div>
+        <div class="card-body">
+          <h1 class="card-title" th:text="${stats.totalQuantity}">0</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-white bg-danger mb-3 shadow">
+        <div class="card-header">Top Performer</div>
+        <div class="card-body">
+          <h4 class="card-title" th:text="${stats.topPerformer}">Name</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-white bg-primary mb-3 shadow">
+        <div class="card-header">Total Records</div>
+        <div class="card-body">
+          <h1 class="card-title" th:text="${stats.totalRecords}">0</h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-info mb-3 shadow">
+        <div class="card-header">Total Users</div>
+        <div class="card-body">
+          <h1 class="card-title" th:text="${stats.totalUsers}">0</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card text-white bg-primary mb-3 shadow">
+        <div class="card-header">Total Records</div>
+        <div class="card-body">
+          <h1 class="card-title" th:text="${stats.totalRecords}">0</h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white bg-success mb-3 shadow">
+        <div class="card-header">Active Lines</div>
+        <div class="card-body">
+          <h1 class="card-title" th:text="${stats.totalLines}">0</h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white bg-info mb-3 shadow">
+        <div class="card-header">Registered Users</div>
+        <div class="card-body">
+          <h1 class="card-title" th:text="${stats.totalUsers}">0</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="mt-4">Records by Line</h3>
+  <table class="table table-hover mt-3 shadow-sm">
+    <thead class="thead-dark">
+    <tr>
+      <th>Line Name</th>
+      <th>Records Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${stats.recordsPerLine}">
+      <td th:text="${entry.key}"></td>
+      <td><span class="badge badge-pill badge-primary" th:text="${entry.value}"></span></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div th:insert="~{fragment/footer :: footer}"></div>
+</body>
+</html>

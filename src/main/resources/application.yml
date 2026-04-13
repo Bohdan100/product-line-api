@@ -27,12 +27,12 @@ spring:
     resources:
       add-mappings: true
 
-# SQL debug and logging
 logging:
   level:
     org.flywaydb: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  # SQL debug and logging
   file:
     name: logs/application.log
 

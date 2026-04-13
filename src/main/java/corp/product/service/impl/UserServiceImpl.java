@@ -1,14 +1,13 @@
-package corp.product.service;
-
+package corp.product.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import lombok.AllArgsConstructor;
 import org.jspecify.annotations.NonNull;
 
+import corp.product.service.UserService;
 import corp.product.repository.UserRepository;
 import corp.product.converter.UserConverter;
 import corp.product.dto.UserDto;
@@ -22,7 +21,7 @@ import java.util.stream.StreamSupport;
 
 @Service
 @AllArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserConverter converter;
 

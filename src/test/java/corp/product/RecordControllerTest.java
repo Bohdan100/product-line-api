@@ -14,8 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import corp.product.controller.RecordController;
-import corp.product.service.LineService;
-import corp.product.service.RecordService;
+import corp.product.service.impl.LineServiceImpl;
+import corp.product.service.impl.RecordServiceImpl;
 import corp.product.data.User;
 import corp.product.dto.RecordDto;
 import corp.product.dto.LineDto;
@@ -24,10 +24,10 @@ import corp.product.dto.LineDto;
 class RecordControllerTest {
 
     @Mock
-    private RecordService recordService;
+    private RecordServiceImpl recordService;
 
     @Mock
-    private LineService lineService;
+    private LineServiceImpl lineService;
 
     @Mock
     private Model model;

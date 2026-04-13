@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import corp.product.controller.LineController;
-import corp.product.service.LineService;
+import corp.product.service.impl.LineServiceImpl;
 import corp.product.repository.LineRepository;
 import corp.product.data.Line;
 import corp.product.dto.LineDto;
@@ -27,7 +27,7 @@ import corp.product.converter.LineConverter;
 class LineControllerTest {
 
     @Mock
-    private LineService lineService;
+    private LineServiceImpl lineService;
 
     @Mock
     private LineRepository lineRepository;

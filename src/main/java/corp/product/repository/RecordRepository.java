@@ -36,4 +36,19 @@ public interface RecordRepository extends JpaRepository<RecordEntity, Long> {
             @Param("surname") String surname,
             Pageable pageable
     );
+
+    @Query("SELECT COUNT(r) FROM RecordEntity r")
+    long countAllRecords();
+
+    @Query("SELECT COUNT(r) FROM RecordEntity r WHERE r.line.id = :lineId")
+    long countRecordsByLineId(@Param("lineId") long lineId);
+
+    @Query("SELECT SUM(r.quantity) FROM RecordEntity r")
+    Long sumAllQuantity();
+
+    @Query(value = "SELECT u.name || ' ' || u.surname, COUNT(r.id) as cnt " +
+            "FROM record r JOIN \"user\" u ON r.author_id = u.id " +
+            "GROUP BY u.id, u.name, u.surname " +
+            "ORDER BY cnt DESC LIMIT 1", nativeQuery = true)
+    List<Object[]> findTopAuthor();
 }

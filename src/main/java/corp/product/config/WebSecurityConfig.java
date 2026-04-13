@@ -6,17 +6,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.web.SecurityFilterChain;
 
-import corp.product.service.UserService;
+import corp.product.service.impl.UserServiceImpl;
 
 @Configuration
 public class WebSecurityConfig {
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    public WebSecurityConfig(UserService userService) {
+    public WebSecurityConfig(UserServiceImpl userService) {
         this.userService = userService;
     }
 

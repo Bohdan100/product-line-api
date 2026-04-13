@@ -8,7 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import corp.product.data.Line;
 import corp.product.dto.LineDto;
 import corp.product.repository.LineRepository;
-import corp.product.service.LineService;
+import corp.product.service.impl.LineServiceImpl;
 import corp.product.converter.LineConverter;
 
 import java.util.Collections;
@@ -28,7 +28,7 @@ public class LineServiceTest {
     private LineConverter converter;
 
     @InjectMocks
-    private LineService lineService;
+    private LineServiceImpl lineService;
 
     @Test
     void testGetLineList() {

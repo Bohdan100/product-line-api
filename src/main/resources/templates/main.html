@@ -33,6 +33,9 @@
         </div>
         <div class="col">
             <h5 th:if="${#authentication.authorities.contains(admin)}">
+                <!-- Admin dashboard info -->
+                <a class="list-group-item list-group-item-action list-group-item-warning m-2 p-3"
+                   th:href="@{/admin/dashboard}">System Dashboard (Stats)</a>
                 <a class="list-group-item list-group-item-action list-group-item-primary m-2 p-3" th:href="@{/users}">User Management</a>
             </h5>
             <h5 th:if="${#authentication.authorities.contains(admin)}">
@@ -41,6 +44,7 @@
         </div>
     </div>
 </div>
+
 <!-- Company info -->
 <div th:insert="~{fragment/footer :: footer}"></div>
 
