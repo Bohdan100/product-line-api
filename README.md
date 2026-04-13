@@ -114,7 +114,7 @@ via cookies.
 - **Base URL**: [http://localhost:8080/lines](http://localhost:8080/lines)
 
   | Method | Endpoint | Description | Access |
-                     |--------|----------|-------------|--------|
+  |--------|----------|-------------|--------|
   | GET | `/lines` | View all product lines | Authenticated users |
   | GET | `/lines/create` | Display line creation form | ADMIN only |
   | POST | `/lines/create` | Create a new product line | ADMIN only |
@@ -126,8 +126,8 @@ via cookies.
 
   ```json lines
     {
-  "name": "Manufacturing Line A"
-}
+      "name": "Manufacturing Line A"
+    }
   ```
 
 2. **Record Management Endpoints**
@@ -135,7 +135,7 @@ via cookies.
 - **Base URL**: [http://localhost:8080/lines/line/{lineId}](http://localhost:8080/lines/line/{lineId})
 
   | Method | Endpoint | Description | Access |
-                     |--------|----------|-------------|--------|
+  |--------|----------|-------------|--------|
   | GET | `/lines/line/{lineId}` | View all records for specific line with filtering | Authenticated users |
   | GET | `/lines/line/{lineId}/record-create` | Display record creation form | Authenticated users |
   | POST | `/lines/line/{lineId}/record-create` | Create new record in line | Authenticated users |
@@ -161,15 +161,15 @@ via cookies.
 
   ```json lines
     {
-  "date": "2026-01-01",
-  "startTime": "08:00:00",
-  "endTime": "16:00:00",
-  "nameOfOrganization": "Next Systems",
-  "nameOfProduct": "Raw Materials",
-  "variant": "Standard",
-  "side": "Large",
-  "quantity": 1200
-}
+      "date": "2026-01-01",
+      "startTime": "08:00:00",
+      "endTime": "16:00:00",
+      "nameOfOrganization": "Next Systems",
+      "nameOfProduct": "Raw Materials",
+      "variant": "Standard",
+      "side": "Large",
+      "quantity": 1200
+      }
   ```
 
 **Example:**
@@ -180,7 +180,7 @@ via cookies.
 - **Base URL**: [http://localhost:8080/users](http://localhost:8080/users)
 
   | Method | Endpoint | Description | Access |
-                     |--------|----------|-------------|--------|
+  |--------|----------|-------------|--------|
   | GET | `/users` | List all users | ADMIN only |
   | GET | `/users/create` | Display user creation form | ADMIN only |
   | POST | `/users/create` | Create new user with roles | ADMIN only |
@@ -191,19 +191,13 @@ via cookies.
 **Request Body Example (Create User)**:
 
   ```json lines
-    {
-  "username": "mark_worker",
-  // 3-15 characters
-  "password": "secret_password",
-  // 3-15 characters
-  "name": "Mark",
-  // 1-25 characters
-  "surname": "Taylor",
-  // 1-25 characters
-  "roles": [
-    "OPERATOR"
-  ]
-}
+      {
+        "username": "mark_worker",     // 3-15 characters
+        "password": "secret_password", // 3-15 characters
+        "name": "Mark",                // 1-25 characters
+        "surname": "Taylor",           // 1-25 characters
+        "roles": ["OPERATOR"]
+      }
   ```
 
 Available Roles:
@@ -217,16 +211,16 @@ Available Roles:
 - **Base URL**: [http://localhost:8080/reports](http://localhost:8080/reports)
 
   | Method | Endpoint | Description | Access |
-                     |--------|----------|-------------|--------|
+  |--------|----------|-------------|--------|
   | GET | `/reports/report-for-time` | View aggregated report by date range | ADMIN, SUPERIOR |
   | GET | `/reports/report-for-time/download-excel` | Download Excel report | ADMIN, SUPERIOR |
 
 **Query Parameters:**
 
-| Parameter | Required            | Format     | Description                  |
+  | Parameter | Required            | Format     | Description                  |
   |-----------|---------------------|------------|------------------------------|
-| `start`   | Yes (for filtering) | YYYY-MM-DD | Start date for report period |
-| `end`     | Yes (for filtering) | YYYY-MM-DD | End date for report period   |
+  | `start`   | Yes (for filtering) | YYYY-MM-DD | Start date for report period |
+  | `end`     | Yes (for filtering) | YYYY-MM-DD | End date for report period   |
 
 Example:
 
@@ -237,11 +231,11 @@ The report generates a summary of quantities grouped by product lines and organi
 
 5. **Dashboard Endpoint**
 
-- **Base URL**: [http://localhost:8080/admin/dashboard](http://localhost:8080/admin/dashboard)
+   - **Base URL**: [http://localhost:8080/admin/dashboard](http://localhost:8080/admin/dashboard)
 
-| Method | Endpoint           | Description                                  | Access              |
-      |--------|--------------------|----------------------------------------------|---------------------|
-| GET    | `/admin/dashboard` | Main dashboard with statistics and line list | Authenticated users |
+   | Method | Endpoint           | Description                                  | Access              |
+   |--------|--------------------|----------------------------------------------|---------------------|
+   | GET    | `/admin/dashboard` | Main dashboard with statistics and line list | Authenticated users |
 
 The dashboard displays:
 
